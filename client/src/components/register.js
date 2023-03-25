@@ -10,7 +10,7 @@ const Register = () => {
         e.preventDefault()
         try {
             await api.post("auth/register",{
-                username,
+                userName:username,
                 password
             })
             alert("Registartion completed! Now Log in ")
