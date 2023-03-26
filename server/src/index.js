@@ -4,6 +4,7 @@ import mongoose from "mongoose"
 import http from "http"
 import dotenv from "dotenv"
 import {userRouter} from "./routes/users.js"
+import {recipesRouter} from "./routes/recipes.js"
 
 if(process.env.NODE_ENV !== "production"){
     dotenv.config()
@@ -15,6 +16,7 @@ app.use(cors())
 app.use(express.json())
 
 app.use("/auth",userRouter)
+app.use("/recipes",recipesRouter)
 const server = http.createServer(app);
 
 mongoose.connect("mongodb+srv://fahadHussain:LockheedSR71@recipes.a0xuvug.mongodb.net/recipes?retryWrites=true&w=majority")
