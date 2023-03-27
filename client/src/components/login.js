@@ -3,6 +3,7 @@ import {useCookies} from "react-cookie"
 import api from "../api/configAxios"
 import Form from './form'
 import {useNavigate} from "react-router-dom"
+import axios from 'axios'
 
 const Login = () => {
     const [username, setUsername] = useState("")
@@ -13,7 +14,7 @@ const Login = () => {
     const onSubmit=async(e)=>{
       e.preventDefault();
       try {
-        const response=await api.post("auth/login",{
+        const response=await axios.post("http://localhost:3001/auth/login",{
           userName:username,
           password
         })

@@ -1,7 +1,8 @@
 import express from "express"
 import cors from "cors"
 import mongoose from "mongoose"
-import http from "http"
+import https from "https"
+import fs from "fs"
 import dotenv from "dotenv"
 import {userRouter} from "./routes/users.js"
 import {recipesRouter} from "./routes/recipes.js"
@@ -11,13 +12,21 @@ if(process.env.NODE_ENV !== "production"){
 }
 
 const app=express()
-app.use(cors())
+const options = {
+  key: fs.readFileSync("C:/Users/fahad.hussain/key.pem"),
+  cert: fs.readFileSync("C:/Users/fahad.hussain/cert.pem")
+};
+app.use(cors({
+    origin:"https://localhost:3000",
+    methods:["GET","POST","PUT","DELETE"],
+    allowedHeaders:["Content-Type","Authorization"]
+}))
 
 app.use(express.json())
 
 app.use("/auth",userRouter)
 app.use("/recipes",recipesRouter)
-const server = http.createServer(app);
+const server = https.createServer(app);
 
 mongoose.connect("mongodb+srv://fahadHussain:LockheedSR71@recipes.a0xuvug.mongodb.net/recipes?retryWrites=true&w=majority")
 const db=mongoose.connection
