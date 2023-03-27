@@ -19,14 +19,14 @@ const options = {
 app.use(cors({
     origin:"https://localhost:3000",
     methods:["GET","POST","PUT","DELETE"],
-    allowedHeaders:["Content-Type","Authorization"]
+    allowedHeaders:["Content-Type"]
 }))
 
 app.use(express.json())
 
 app.use("/auth",userRouter)
 app.use("/recipes",recipesRouter)
-const server = https.createServer(app);
+const server = https.createServer(options,app);
 
 mongoose.connect("mongodb+srv://fahadHussain:LockheedSR71@recipes.a0xuvug.mongodb.net/recipes?retryWrites=true&w=majority")
 const db=mongoose.connection
