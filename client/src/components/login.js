@@ -3,7 +3,6 @@ import {useCookies} from "react-cookie"
 import api from "../api/configAxios"
 import Form from './form'
 import {useNavigate} from "react-router-dom"
-import axios from 'axios'
 
 const Login = () => {
     const [username, setUsername] = useState("")
