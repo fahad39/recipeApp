@@ -49,7 +49,15 @@ const CreateRecipe = () => {
         <input type="text" id="name" name="name" onChange={handleChage} />
        
         <label htmlFor='ingredients'>Ingredients</label>
-        {recipe.ingredients.map((ingredient,index)=><input key={index} type="text" id="ingredients" name="ingredients" value={ingredient} onChange={(event)=>handleIngredientChange(event,index)}  />)}
+        {recipe.ingredients.map((ingredient,index)=><input
+          key={index}
+          type="text"
+          id="ingredients"
+          name="ingredients"
+          value={ingredient}
+          onChange={(event)=>handleIngredientChange(event,index)}
+                
+        />)}
         <button type='button' onClick={addIngredient}>Add Ingredients</button>
         
         
