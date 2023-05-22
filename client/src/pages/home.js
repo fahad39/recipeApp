@@ -1,8 +1,68 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
+import api from "../api/configAxios"
+import { useGetUserID } from '../hook/useGetUserID'
 
 const Home = () => {
+  const userID=useGetUserID()
+  const [recipes, setRecipes] = useState([])
+  const [savedRecipes, setSavedRecipes] = useState([])
+
+  useEffect(() => {
+    const fetchRecipes=async()=>{
+      try {
+        const response=await api.get("recipes")
+        console.log(response.data)
+        setRecipes(response.data)
+      } catch (error) {
+        console.error(error)
+      }
+
+    }
+    const fetchSavedRecipes=async()=>{
+      try {
+        const response=await api.get(`savedRecipes/ids/${userID}`)
+        console.log("savedRecipes",response.data)
+      } catch (error) {
+        console.error(error)
+      }
+
+    }
+    fetchRecipes()
+    fetchSavedRecipes()
+  
+  }, [])
+  
+  const saveRecipe=async(recipeID)=>{
+    try {
+        const response=await api.put("recipes",{recipeID, userID})
+        console.log(response)
+    } catch (error) {
+        console.error(error)
+    }
+  }
+
+
   return (
-    <div>H</div>
+    <div>
+      <h1>Recipes</h1>
+      <ul>
+        {recipes.map((recipe)=>{
+          return <li key={recipe._id}>
+            <div>
+              <h2>{recipe.name}</h2>
+              <button onClick={()=>saveRecipe(recipe._id)}> Save </button>
+            </div>
+            <div className='instructions'>
+              <p>{recipe.instructions}</p>
+            </div>
+            <img src={recipe.imageUrl} alt={recipe.name} />
+            <p>Cooking Time: {recipe.cookingTime} (minutes)</p>
+
+          </li>
+        })}
+      </ul>
+
+    </div>
   )
 }
 

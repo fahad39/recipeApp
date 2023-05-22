@@ -41,9 +41,10 @@ router.put("/",async (req,res)=>{
     }
 })
 
-router.get("/savedRecipes/ids",async (req,res)=>{
+router.get("/savedRecipes/ids/:userID",async (req,res)=>{
     try {
-        const user=await UserModel.findById(req.body.userID)
+        const user=await UserModel.findById(req.params.userID)
+        console.log("user not found",user)
         res.json({savedRecipes:user?.savedRecipes})
         
     } catch (error) {
