@@ -7,11 +7,11 @@ const Form = ({username,setUsername,password,setPassword,label,onSubmit}) => {
             <h2> {label} </h2>
             <div className='form-group'>
                 <label htmlFor='username'> Username : </label>
-                <input type={"text"} value={username} id="username" onChange={(e)=>setUsername(e.target.value)} />
+                <input type={"text"} value={username}  onChange={(e)=>setUsername(e.target.value)} />
             </div>
             <div className='form-group'>
                 <label htmlFor='password'> Password : </label>
-                <input type={"password"} value={password} id="password" onChange={(e)=>setPassword(e.target.value)} />
+                <input type={"password"} value={password}  onChange={(e)=>setPassword(e.target.value)} />
             </div>
             <button type='submit' > {label} </button>
         </form>
