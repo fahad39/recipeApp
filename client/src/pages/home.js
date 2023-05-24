@@ -11,7 +11,6 @@ const Home = () => {
     const fetchRecipes=async()=>{
       try {
         const response=await api.get("recipes")
-        console.log(response.data)
         setRecipes(response.data)
       } catch (error) {
         console.error(error)
@@ -20,8 +19,8 @@ const Home = () => {
     }
     const fetchSavedRecipes=async()=>{
       try {
-        const response=await api.get(`savedRecipes/ids/${userID}`)
-        console.log("savedRecipes",response.data)
+        const response=await api.get(`recipes/savedRecipes/ids/${userID}`)
+        setSavedRecipes(response.data.savedRecipes)
       } catch (error) {
         console.error(error)
       }
@@ -35,7 +34,8 @@ const Home = () => {
   const saveRecipe=async(recipeID)=>{
     try {
         const response=await api.put("recipes",{recipeID, userID})
-        console.log(response)
+        
+        setSavedRecipes(response.data.savedRecipes)
     } catch (error) {
         console.error(error)
     }
@@ -50,7 +50,8 @@ const Home = () => {
           return <li key={recipe._id}>
             <div>
               <h2>{recipe.name}</h2>
-              <button onClick={()=>saveRecipe(recipe._id)}> Save </button>
+              {savedRecipes.includes(recipe._id) ?<button> Saved </button> :<button onClick={()=>saveRecipe(recipe._id)}> Save </button> }
+              
             </div>
             <div className='instructions'>
               <p>{recipe.instructions}</p>
