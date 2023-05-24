@@ -14,7 +14,7 @@ router.get("/",async(req,res)=>{
  }
 })
 
-router.post("/",async (req,res)=>{
+router.post("/", async (req,res)=>{
     const recipe=new RecipeModel(req.body)
     try {
         const response=recipe.save()
@@ -27,8 +27,9 @@ router.post("/",async (req,res)=>{
 })
 
 
-router.put("/",async (req,res)=>{
+router.put("/", async (req,res)=>{
     try {
+        console.log("call save")
         const recipe=await RecipeModel.findById(req.body.recipeID)
         const user=await UserModel.findById(req.body.userID)
         user.savedRecipes.push(recipe)
@@ -44,7 +45,6 @@ router.put("/",async (req,res)=>{
 router.get("/savedRecipes/ids/:userID",async (req,res)=>{
     try {
         const user=await UserModel.findById(req.params.userID)
-        console.log("user not found",user)
         res.json({savedRecipes:user?.savedRecipes})
         
     } catch (error) {

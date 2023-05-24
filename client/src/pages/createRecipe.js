@@ -2,9 +2,11 @@ import React,{useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from "../api/configAxios"
 import { useGetUserID } from '../hook/useGetUserID'
+import {useCookies} from "react-cookie"
 
 const CreateRecipe = () => {
   const userID=useGetUserID()
+  const [cookies, _]=useCookies(["access_token"])
   const navigate=useNavigate()
   const [recipe, setRecipe] = useState({
     name:"",

@@ -15,8 +15,11 @@ const Navbar = () => {
     <div className='navbar'>
         <Link to="/">Home</Link>
         <Link to="/createRecipe">Create Recipe</Link>
-        <Link to="/savedRecipe">Saved Recipie</Link>
-        {!cookies.access_token ? <Link to="/auth">Login / Register</Link> : <button onClick={logout}>LogOut</button>}
+        
+        {!cookies.access_token ? <Link to="/auth">Login / Register</Link> : <>
+          <Link to="/savedRecipe">Saved Recipie</Link>
+          <button onClick={logout}>LogOut</button>
+        </>}
         
     </div>
   )

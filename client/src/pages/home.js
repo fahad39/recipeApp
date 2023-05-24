@@ -1,11 +1,13 @@
 import React,{useState,useEffect} from 'react'
 import api from "../api/configAxios"
 import { useGetUserID } from '../hook/useGetUserID'
+import {useCookies} from "react-cookie"
 
 const Home = () => {
   const userID=useGetUserID()
   const [recipes, setRecipes] = useState([])
   const [savedRecipes, setSavedRecipes] = useState([])
+  const [cookies, _]=useCookies(["access_token"])
 
   useEffect(() => {
     const fetchRecipes=async()=>{
@@ -27,7 +29,9 @@ const Home = () => {
 
     }
     fetchRecipes()
-    fetchSavedRecipes()
+
+      fetchSavedRecipes()
+    
   
   }, [])
   
@@ -50,7 +54,7 @@ const Home = () => {
           return <li key={recipe._id}>
             <div>
               <h2>{recipe.name}</h2>
-              {savedRecipes.includes(recipe._id) ?<button> Saved </button> :<button onClick={()=>saveRecipe(recipe._id)}> Save </button> }
+              {savedRecipes?.includes(recipe._id) ?<button> Saved </button> :<button onClick={()=>saveRecipe(recipe._id)}> Save </button> }
               
             </div>
             <div className='instructions'>
