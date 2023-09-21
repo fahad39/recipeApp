@@ -24,3 +24,7 @@ yarn-error.log*
 
 #enviroment file
 .env
+
+
+#Certificates
+/certificates
